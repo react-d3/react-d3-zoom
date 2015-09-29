@@ -6,6 +6,9 @@ var zoom_charts = [
   "line_multi",
   "scatter",
   "area_stack",
+  "bar",
+  "bar_stack",
+  "bar_group"
 ]
 
 var prefix_zoom_charts = zoom_charts.map(function(d) {
