@@ -7,58 +7,37 @@ import {
 } from 'react';
 
 import {
-  Chart as Chart,
+  Chart as Chart
 } from 'react-d3-core';
 
 import {
   BarStackChart as BarStackChart,
   series as series
-} from 'react-d3-basics';
+} from 'react-d3-basic';
 
 import {
-  default as TooltipSet
+  default as ZoomSet
 } from './inherit/index';
 
 import {
-  default as Tooltip
-} from './utils/tooltip';
+  default as ZoomFocus,
+} from './utils/zoom_focus';
 
-export default class BarStackTooltip extends TooltipSet {
-
-  _mouseOver(d, dom) {
-
-    d3.select(dom)
-      .style("fill-opacity", 1);
-
-    this.setState({
-      xTooltip: d3.event.clientX,
-      yTooltip: d3.event.clientY,
-      contentTooltip: d
-    })
-  }
-
-  _mouseOut(d, dom, opacity) {
-    d3.select(dom)
-      .style("fill-opacity", opacity);
-
-    this.setState({
-      xTooltip: null,
-      yTooltip: null,
-      contentTooltip: null
-    })
-  }
+export default class BarStackZoom extends ZoomSet {
 
   render() {
+    const {
+      xDomainSet,
+      yDomainSet
+    } = this.state;
 
-    var chartSeriesData = series(this.props)
-
-    var tooltip = <Tooltip {...this.props} {...this.state}/>
+    var focus = <ZoomFocus {...this.props} />
 
     return (
       <div>
-        {tooltip}
-        <Chart {...this.props}>
-          <BarStackChart {...this.props} {...this.state} onMouseOver={this._mouseOver.bind(this)} onMouseOut={this._mouseOut.bind(this)}/>
+        <Chart {...this.props} {...this.state}>
+          <BarStackChart {...this.props} {...this.state} xDomain={xDomainSet} yDomain={yDomainSet} showZoom={true}/>
+          {focus}
         </Chart>
       </div>
     )

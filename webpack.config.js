@@ -12,20 +12,19 @@ var js_dist_min = path.join(__dirname, './example/dist/min');
 // for development mode: NODE_ENV=0 webpack
 // for production mode: NODE_ENV=1 webpack
 
-// tooltip_line_multi: js_root + '/tooltip_line_multi.jsx',
-// tooltip_scatter: js_root + '/tooltip_scatter.jsx',
-// tooltip_area_stack: js_root + '/tooltip_area_stack.jsx',
-// tooltip_bar: js_root + '/tooltip_bar.jsx',
-// tooltip_bar_stack: js_root + '/tooltip_bar_stack.jsx',
-// tooltip_bar_group: js_root + '/tooltip_bar_group.jsx',
-// tooltip_pie: js_root + '/tooltip_pie.jsx'
 var ENV = !!(+process.env.NODE_ENV || 0);
 
 module.exports = [{
   name: 'chartComponent',
   devtool: ENV ? "source-map": '',
   entry: {
-    zoom_line: js_root + '/zoom_line.jsx'
+    zoom_line: js_root + '/zoom_line.jsx',
+    zoom_line_multi: js_root + '/zoom_line_multi.jsx',
+    zoom_scatter: js_root + '/zoom_scatter.jsx',
+    zoom_area_stack: js_root + '/zoom_area_stack.jsx',
+    zoom_bar: js_root + '/zoom_bar.jsx',
+    zoom_bar_stack: js_root + '/zoom_bar_stack.jsx',
+    zoom_bar_group: js_root + '/zoom_bar_group.jsx'
   },
 
   output: {

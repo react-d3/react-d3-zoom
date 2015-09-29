@@ -13,36 +13,35 @@ import {
 import {
   ScatterPlot as ScatterPlot,
   series as series
-} from 'react-d3-basics';
+} from 'react-d3-basic';
 
 import {
-  default as TooltipSet
+  default as ZoomSet
 } from './inherit/index';
 
 import {
-  default as Tooltip
-} from './utils/tooltip';
+  default as ZoomFocus,
+} from './utils/zoom_focus';
 
-import {
-  default as Voronoi
-} from './utils/voronoi';
-
-export default class ScatterTooltip extends TooltipSet {
+export default class ScatterZoom extends ZoomSet {
+  static defaultProps = {
+    zoomType: 'scatter'
+  }
 
   render() {
 
-    var chartSeriesData = series(this.props)
+    const {
+      xDomainSet,
+      yDomainSet
+    } = this.state;
 
-    var voronoi = <Voronoi dataset={chartSeriesData} {...this.props} {...this.state} focus={true} onMouseOver= {this.voronoiMouseOver.bind(this)} onMouseOut= {this.voronoiMouseOut.bind(this)}/>
-    var tooltip = <Tooltip {...this.props} {...this.state}/>
-
+    var focus = <ZoomFocus {...this.props} />
 
     return (
       <div>
-        {tooltip}
-        <Chart {...this.props}>
-          <ScatterPlot {...this.props} {...this.state}/>
-          {voronoi}
+        <Chart {...this.props} {...this.state}>
+          <ScatterPlot {...this.props} {...this.state} xDomain={xDomainSet} yDomain={yDomainSet} showZoom={true}/>
+          {focus}
         </Chart>
       </div>
     )

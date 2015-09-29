@@ -6,10 +6,6 @@ var zoom_charts = [
   "line_multi",
   "scatter",
   "area_stack",
-  "bar",
-  "bar_stack",
-  "bar_group",
-  "pie"
 ]
 
 var prefix_zoom_charts = zoom_charts.map(function(d) {
@@ -39,6 +35,54 @@ module.exports = [{
   "data": {
     "title": "Zoom Line Chart",
     "type": "zoom_line",
+    "prefix": ENV? 'min': 'origin'
+  }
+},{
+  "layout": "./charts.hbs",
+  "filename": "./example/zoom_line_multi.html",
+  "data": {
+    "title": "Zoom Line Multi Chart",
+    "type": "zoom_line_multi",
+    "prefix": ENV? 'min': 'origin'
+  }
+},{
+  "layout": "./charts.hbs",
+  "filename": "./example/zoom_scatter.html",
+  "data": {
+    "title": "Zoom Scatter Chart",
+    "type": "zoom_scatter",
+    "prefix": ENV? 'min': 'origin'
+  }
+},{
+  "layout": "./charts.hbs",
+  "filename": "./example/zoom_area_stack.html",
+  "data": {
+    "title": "Zoom Area Stack Chart",
+    "type": "zoom_area_stack",
+    "prefix": ENV? 'min': 'origin'
+  }
+},{
+  "layout": "./charts.hbs",
+  "filename": "./example/zoom_bar.html",
+  "data": {
+    "title": "Zoom Bar Chart",
+    "type": "zoom_bar",
+    "prefix": ENV? 'min': 'origin'
+  }
+},{
+  "layout": "./charts.hbs",
+  "filename": "./example/zoom_bar_group.html",
+  "data": {
+    "title": "Zoom Bar Group Chart",
+    "type": "zoom_bar_group",
+    "prefix": ENV? 'min': 'origin'
+  }
+},{
+  "layout": "./charts.hbs",
+  "filename": "./example/zoom_bar_stack.html",
+  "data": {
+    "title": "Zoom Bar Stack Chart",
+    "type": "zoom_bar_stack",
     "prefix": ENV? 'min': 'origin'
   }
 }]

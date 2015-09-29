@@ -47,14 +47,44 @@ export default class Zoom extends Component {
 
   zoomed(xScale, yScale) {
 
+    const {
+      xScaleSet,
+      yScaleSet
+    } = this.state;
+
+    const {
+      zoomType
+    } = this.props;
+
     var evt = d3.event;
 
-    this.setState({
-      d3EventSet: evt,
-      xDomainSet: xScale.domain(),
-      yDomainSet: yScale.domain()
-    })
+    if( zoomType === 'line' ||
+      zoomType === 'scatter' ||
+      zoomType === 'area_stack') {
 
+      this.setState({
+        d3EventSet: evt,
+        xDomainSet: xScale.domain(),
+        yDomainSet: yScale.domain()
+      })
+
+    }else if( zoomType === 'bar' ||
+      zoomType === 'bar_group' ||
+      zoomType === 'bar_stack'
+    ) {
+      var newDomain = xScale.domain();
+
+      var selected =  xScale.domain()
+          .filter((d) => {
+            return (newDomain[0] <= xScaleSet(d)) &&
+              (yScaleSet(d) <= newDomain[1]);
+          });
+
+      this.setState({
+        d3EventSet: evt,
+        xDomainSet: selected
+      })
+    }
   }
 
 }

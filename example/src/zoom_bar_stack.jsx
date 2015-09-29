@@ -6,11 +6,7 @@ import {
 } from 'react';
 
 import {
-  Chart as Chart,
-} from 'react-d3-core';
-
-import {
-  BarGroupTooltip
+  BarStackZoom as BarStackZoom
 } from '../../index';
 
 (() => {
@@ -19,14 +15,16 @@ import {
   var ageNames = d3.keys(generalChartData[0]).filter(function(key) { return key !== "State"; });
 
   generalChartData.forEach(function(d) {
-    d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
+    var y0 = 0;
+    d.ages = ageNames.map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+    d.total = d.ages[d.ages.length - 1].y1;
   });
 
   const width = 960,
     height = 500,
     margins = {top: 50, right: 50, bottom: 50, left: 50},
     id = "test-chart",
-    title = "Bar Group Chart",
+    title = "Bar Stack Chart With Zoom",
     svgClassName = "test-chart-class",
     titleClassName = "test-chart-title-class",
     legendClassName = "test-legend",
@@ -78,16 +76,16 @@ import {
       return +d;
     },
     yOrient = 'left',
-    yTickOrient = 'right',
+    yTickOrient = 'left',
     yRange = [height - margins.top - margins.bottom, 0],
-    yDomain = [0, d3.max(generalChartData, (d) => { return d3.max(d.ages, (d) => { return d.value; }); })],
+    yDomain = [0, d3.max(generalChartData, function(d) { return d.total; })],
     yScale = 'linear',
     yAxisClassName = 'y-axis',
-    yLabel = "Population";
-
+    yLabel = "Population",
+    yTickFormat = d3.format(".2s");
 
   React.render(
-      <BarGroupTooltip
+      <BarStackZoom
         title= {title}
         data= {generalChartData}
         width= {width}
@@ -106,29 +104,38 @@ import {
         lineClass = 'test-line-class'
         barClass= 'test-bar-class'
         scatterClass = 'test-line-dot-class'
+        gridAxisClassName = 'grid-axis-class'
         showScatter = {true}
         showLegend= {showLegend}
         showXAxis= {showXAxis}
         showYAxis= {showYAxis}
-        showTooltip= {true}
+        showZoom= {true}
         x= {x}
+        showXGrid= {false}
         xDomain= {xDomain}
         xRangeRoundBands= {xRangeRoundBands}
         xScale= {xScale}
         xOrient= {xOrient}
         xTickOrient= {xTickOrient}
+        xTickPadding = {3}
+        xInnerTickSize = {6}
+        xOuterTickSize = {6}
         xLabel = {xLabel}
         xLabelPosition = 'bottom'
         y= {y}
+        showYGrid= {true}
         yOrient= {yOrient}
         yRange= {yRange}
         yDomain= {yDomain}
         yScale= {yScale}
         yTickOrient= {yTickOrient}
-        yTickFormat= {d3.format(".2s")}
+        yTickPadding = {4}
+        yInnerTickSize = {6}
+        yOuterTickSize = {6}
+        yTickFormat= {yTickFormat}
         yLabel = {yLabel}
         yLabelPosition = 'left'
       />
-  , document.getElementById('data_tooltip_bar_group')
+    , document.getElementById('data_zoom_bar_stack')
   )
 })()

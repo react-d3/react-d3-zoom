@@ -6,20 +6,19 @@ import {
 } from 'react';
 
 import {
-  AreaStackTooltip as AreaStackTooltip
+  ScatterZoom as ScatterZoom
 } from '../../index';
 
 (() => {
-  var generalChartData = require('dsv?delimiter=\t!./data/browser.tsv')
+  var generalChartData = require('dsv?delimiter=\t!./data/temp.tsv')
 
-  const parseDate = d3.time.format("%y-%b-%d").parse;
-  const formatPercent = d3.format(".0%");
+  const parseDate = d3.time.format("%Y%m%d").parse;
 
   const width = 960,
     height = 500,
     margins = {top: 50, right: 50, bottom: 50, left: 50},
     id = "test-chart",
-    title = "Stack Area Chart With Tooltip",
+    title = "Scatter Plot With Zoom",
     svgClassName = "test-chart-class",
     titleClassName = "test-chart-title-class",
     legendClassName = "test-legend",
@@ -28,28 +27,27 @@ import {
     showYAxis = true,
     brushHeight = 200,
     yBrushRange = [brushHeight - margins.top - margins.bottom, 0],
-    interpolate = 'basis',
     chartSeries = [
       {
-        field: 'IE',
-        name: 'IE browser'
+        field: 'New York',
+        name: 'New York Temp',
+        color: '#ff7f0e',
+        symbol: "cross"
       },
       {
-        field: 'Chrome',
-        name: 'Chrome browser'
+        field: 'San Francisco',
+        name: 'San Francisco Temp',
+        color: '#2ca02c',
+        symbol: 'diamond'
       },
       {
-        field: 'Firefox'
-      },
-      {
-        field: 'Safari',
-        name: 'Safari browser'
-      },
-      {
-        field: 'Opera',
-        name: 'Opera browser'
+        field: 'Austin',
+        name: 'Austin Temp',
+        color: '#7777ff',
+        symbol: 'triangle-down'
       }
     ],
+    interpolate = 'monotone',
     x = (d) => {
       return parseDate(d.date);
     },
@@ -61,17 +59,19 @@ import {
     xAxisClassName = 'x-axis',
     xLabel = "Date",
     y = (d) => {
-      return d / 100;
+      return d;
     },
     yOrient = 'left',
-    yTickOrient = 'right',
+    yTickOrient = 'left',
+    yDomain = [20, 100],
     yRange = [height - margins.top - margins.bottom, 0],
     yScale = 'linear',
     yAxisClassName = 'y-axis',
-    yLabel = "Browser rate (%)";
+    yLabel = "Temperature (ºF)";
+
 
   React.render(
-    <AreaStackTooltip
+    <ScatterZoom
       title= {title}
       data= {generalChartData}
       width= {width}
@@ -85,7 +85,6 @@ import {
       xAxisClassName= {xAxisClassName}
       legendClassName= {legendClassName}
       legendPosition= 'right'
-      categoricalColors= {d3.scale.category10()}
       chartSeries = {chartSeries}
       interpolate = {interpolate}
       lineClass = 'test-line-class'
@@ -107,13 +106,13 @@ import {
       xLabelPosition = 'bottom'
       y= {y}
       yOrient= {yOrient}
+      yDomain= {yDomain}
       yRange= {yRange}
       yScale= {yScale}
       yTickOrient= {yTickOrient}
-      yTickFormat= {formatPercent}
       yLabel = {yLabel}
       yLabelPosition = 'left'
     />
-  , document.getElementById('data_tooltip_area_stack')
+  , document.getElementById('data_zoom_scatter')
   )
 })()
