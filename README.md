@@ -6,7 +6,7 @@
 
 - Line Chart: export as `LineZoom`
 - Area Stack Chart: export as `AreaStackZoom`
-- Scatter Plot: export as `ScatterZoom`
+- Scatter Plot: export as `ScatterZoom
 
 ## License
 
