@@ -25,10 +25,13 @@ import {
 
 export default class BarStackZoom extends ZoomSet {
 
+  static defaultProps = {
+    zoomType: 'bar_stack'
+  }
+
   render() {
     const {
-      xDomainSet,
-      yDomainSet
+      xDomainSet
     } = this.state;
 
     var focus = <ZoomFocus {...this.props} />
@@ -36,7 +39,7 @@ export default class BarStackZoom extends ZoomSet {
     return (
       <div>
         <Chart {...this.props} {...this.state}>
-          <BarStackChart {...this.props} {...this.state} xDomain={xDomainSet} yDomain={yDomainSet} showZoom={true}/>
+          <BarStackChart {...this.props} {...this.state} xDomain={xDomainSet} showZoom={true}/>
           {focus}
         </Chart>
       </div>

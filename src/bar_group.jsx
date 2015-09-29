@@ -24,11 +24,13 @@ import {
 } from './utils/zoom_focus';
 
 export default class BarGroupZoom extends ZoomSet {
+  static defaultProps = {
+    zoomType: 'bar_group'
+  }
 
   render() {
     const {
-      xDomainSet,
-      yDomainSet
+      xDomainSet
     } = this.state;
 
     var focus = <ZoomFocus {...this.props} />
@@ -36,7 +38,7 @@ export default class BarGroupZoom extends ZoomSet {
     return (
       <div>
         <Chart {...this.props} {...this.state}>
-          <BarGroupChart {...this.props} {...this.state} xDomain={xDomainSet} yDomain={yDomainSet} showZoom={true}/>
+          <BarGroupChart {...this.props} {...this.state} xDomain={xDomainSet} showZoom={true}/>
           {focus}
         </Chart>
       </div>

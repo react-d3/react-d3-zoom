@@ -30,7 +30,7 @@ export default class BarZoom extends ZoomSet {
 
   render() {
     const {
-      yDomainSet
+      xDomainSet
     } = this.state;
 
     var focus = <ZoomFocus {...this.props} />
@@ -38,7 +38,7 @@ export default class BarZoom extends ZoomSet {
     return (
       <div>
         <Chart {...this.props} {...this.state}>
-          <BarChart {...this.props} {...this.state} yDomain={yDomainSet} showZoom={true}/>
+          <BarChart {...this.props} {...this.state} xDomain={xDomainSet} showZoom={true}/>
           {focus}
         </Chart>
       </div>

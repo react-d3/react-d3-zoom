@@ -72,12 +72,12 @@ export default class Zoom extends Component {
       zoomType === 'bar_group' ||
       zoomType === 'bar_stack'
     ) {
-      var newDomain = xScale.domain();
 
-      var selected =  xScale.domain()
+      var newDomain = xScale.domain();
+      var selected =  xScaleSet.domain()
           .filter((d) => {
             return (newDomain[0] <= xScaleSet(d)) &&
-              (yScaleSet(d) <= newDomain[1]);
+              (xScaleSet(d) <= newDomain[1]);
           });
 
       this.setState({
