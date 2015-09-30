@@ -2,6 +2,12 @@
 
 `react-d3` zoom implementation.
 
+## Install
+
+```
+npm install --save react-d3-zoom
+```
+
 ## Support Zoom Component
 
 - Line Chart: export as `LineZoom`
