@@ -1,8 +1,8 @@
 {
   "name": "react-d3-zoom",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "react-d3 zoom implementation",
-  "main": "index.jsx",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack -w",
