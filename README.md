@@ -1,5 +1,7 @@
 # react-d3-zoom
 
+[![Dependency Status](https://gemnasium.com/react-d3/react-d3-zoom.svg)](https://gemnasium.com/react-d3/react-d3-zoom)
+
 `react-d3` zoom implementation.
 
 ## Install

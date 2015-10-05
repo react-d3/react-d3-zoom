@@ -1,26 +1,26 @@
 import {
   default as LineZoom
-} from './src/line';
+} from './line';
 
 import {
   default as AreaStackZoom
-} from './src/area_stack';
+} from './area_stack';
 
 import {
   default as ScatterZoom
-} from './src/scatter';
+} from './scatter';
 
 import {
   default as BarZoom
-} from './src/bar';
+} from './bar';
 
 import {
   default as BarStackZoom
-} from './src/bar_stack';
+} from './bar_stack';
 
 import {
   default as BarGroupZoom
-} from './src/bar_group';
+} from './bar_group';
 
 export {LineZoom as LineZoom}
 export {ScatterZoom as ScatterZoom}
@@ -33,7 +33,7 @@ export {BarGroupZoom as BarGroupZoom}
 
 import {
   default as ZoomSet
-} from './src/inherit/index';
+} from './inherit/index';
 
 export {ZoomSet as ZoomSet}
 
@@ -41,6 +41,6 @@ export {ZoomSet as ZoomSet}
 
 import {
   default as ZoomFocus
-} from './src/utils/zoom_focus';
+} from './utils/zoom_focus';
 
 export {ZoomFocus as ZoomFocus}
