@@ -10,6 +10,10 @@
 npm install --save react-d3-zoom
 ```
 
+## LIVE DEMO
+
+http://reactd3.org/docs/zoom
+
 ## Support Zoom Component
 
 - Line Chart: export as `LineZoom`
