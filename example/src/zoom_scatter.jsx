@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var ScatterZoom = require('../../lib').ScatterZoom;
 
 (function() {
@@ -67,7 +68,7 @@ var ScatterZoom = require('../../lib').ScatterZoom;
 
 
 
-  React.render(
+  ReactDOM.render(
     <ScatterZoom
       title= {title}
       data= {generalChartData}

@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var AreaStackZoom = require('../../lib').AreaStackZoom;
 
 (function() {
@@ -61,7 +62,7 @@ var AreaStackZoom = require('../../lib').AreaStackZoom;
     yScale = 'linear',
     yAxisClassName = 'y-axis';
 
-  React.render(
+  ReactDOM.render(
     <AreaStackZoom
       title= {title}
       data= {generalChartData}

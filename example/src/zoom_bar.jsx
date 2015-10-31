@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var BarZoom = require('../../lib').BarZoom;
 
 (function() {
@@ -48,7 +49,7 @@ var BarZoom = require('../../lib').BarZoom;
     yTicks = [10, "%"],
     yLabelPosition = 'left';
 
-  React.render(
+  ReactDOM.render(
     <BarZoom
       title= {title}
       data= {generalChartData}

@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var BarStackZoom = require('../../lib').BarStackZoom;
 
 (function() {
@@ -89,7 +90,7 @@ var BarStackZoom = require('../../lib').BarStackZoom;
     yOuterTickSize = 6
 
 
-  React.render(
+  ReactDOM.render(
     <BarStackZoom
       title= {title}
       data= {generalChartData}

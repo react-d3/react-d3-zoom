@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var LineZoom = require('../../lib').LineZoom;
 
 (function() {
@@ -64,7 +65,7 @@ var LineZoom = require('../../lib').LineZoom;
     xLabelPosition = 'bottom',
     yLabelPosition = 'left';
 
-  React.render(
+  ReactDOM.render(
       <LineZoom
         title= {title}
         data= {generalChartData}

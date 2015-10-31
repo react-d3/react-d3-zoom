@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var BarGroupZoom = require('../../lib').BarGroupZoom;
 
 (function() {
@@ -83,7 +84,7 @@ var BarGroupZoom = require('../../lib').BarGroupZoom;
     categoricalColors = d3.scale.category10();
 
 
-  React.render(
+  ReactDOM.render(
     <BarGroupZoom
       title= {title}
       data= {generalChartData}
