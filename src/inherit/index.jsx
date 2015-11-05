@@ -7,42 +7,74 @@ import {
 } from 'react';
 
 import {
-  scale as scale
+  scale,
+  xDomainCount,
+  yDomainCount
 } from 'react-d3-core';
 
 export default class Zoom extends Component {
   constructor(props) {
     super(props);
+  }
 
-    this.zoomed = this.zoomed.bind(this);
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    chartSeries: PropTypes.array.isRequired,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    x: PropTypes.func,
+    xDomain: PropTypes.array,
+    xRange: PropTypes.array,
+    xScale: PropTypes.string,
+    xRangeRoundBands: PropTypes.object,
+    y: PropTypes.func,
+    yDomain: PropTypes.array,
+    yRange: PropTypes.array,
+    yScale: PropTypes.string
+  }
 
+  mkXDomain() {
+    return this.setXDomain = xDomainCount(this.props);
+  }
+
+  mkYDomain(stack) {
+    return this.setYDomain = yDomainCount(this.props, stack);
+  }
+
+  mkXScale(xDomain) {
     const {
-      xDomain,
-      yDomain
+      data,
+      xScale,
+      xRange,
+      xRangeRoundBands,
     } = this.props;
 
-    var xScale = {
-      scale: props.xScale,
-      range: props.xRange,
-      domain: props.xDomain,
-      rangeRoundBands: props.xRangeRoundBands
+    var newXScale = {
+      scale: xScale,
+      range: xRange,
+      domain: xDomain,
+      rangeRoundBands: xRangeRoundBands
+    };
+
+    return this.setXScale = scale(newXScale);
+  }
+
+  mkYScale(yDomain) {
+    const {
+      data,
+      yScale,
+      yRange,
+      yRangeRoundBands,
+    } = this.props;
+
+    var newYScale = {
+      scale: yScale,
+      range: yRange,
+      domain: yDomain,
+      rangeRoundBands: yRangeRoundBands
     }
 
-    var yScale = {
-      scale: props.yScale,
-      range: props.yRange,
-      domain: props.yDomain,
-      rangeRoundBands: props.yRangeRoundBands
-    }
-
-    this.state = {
-      xScaleSet: scale(xScale),
-      yScaleSet: scale(yScale),
-      xDomainSet: xDomain,
-      yDomainSet: yDomain,
-      onZoom: this.zoomed,
-      d3EventSet: null
-    }
+    return this.setYScale = scale(newYScale);
   }
 
   zoomed(xScale, yScale) {
@@ -53,7 +85,9 @@ export default class Zoom extends Component {
     } = this.state;
 
     const {
-      zoomType
+      zoomType,
+      zoomX,
+      zoomY
     } = this.props;
 
     var evt = d3.event;
@@ -64,8 +98,8 @@ export default class Zoom extends Component {
 
       this.setState({
         d3EventSet: evt,
-        xDomainSet: xScale.domain(),
-        yDomainSet: yScale.domain()
+        xDomainSet: zoomX ? xScale.domain() : this.setXDomain,
+        yDomainSet: zoomY ? yScale.domain() : this.setYDomain
       })
 
     }else if( zoomType === 'bar' ||
@@ -82,7 +116,8 @@ export default class Zoom extends Component {
 
       this.setState({
         d3EventSet: evt,
-        xDomainSet: selected
+        xDomainSet: zoomX ? selected : this.setXDomain,
+        yDomainSet: zoomY ? yScale.domain() : this.setYDomain
       })
     }
   }

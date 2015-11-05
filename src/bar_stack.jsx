@@ -23,15 +23,41 @@ import {
   default as ZoomFocus,
 } from './utils/zoom_focus';
 
-export default class BarStackZoom extends ZoomSet {
+import {
+  default as CommonProps,
+} from './commonProps';
 
-  static defaultProps = {
-    zoomType: 'bar_stack'
+export default class BarStackZoom extends ZoomSet {
+  constructor(props) {
+    super(props);
+
+    this.mkXDomain();
+    this.mkYDomain(true);
+    this.mkXScale(this.setXDomain);
+    this.mkYScale(this.setYDomain);
+    this.zoomed = this.zoomed.bind(this);
+
+    this.state = {
+      xScaleSet: this.setXScale,
+      yScaleSet: this.setYScale,
+      xDomainSet: this.setXDomain,
+      yDomainSet: this.setYDomain,
+      onZoom: this.zoomed,
+      d3EventSet: null
+    }
   }
+
+  static defaultProps = Object.assign(CommonProps, {
+    zoomType: 'bar_stack',
+    zoomY: false,
+    zoomX: true
+  })
+
 
   render() {
     const {
-      xDomainSet
+      xDomainSet,
+      yDomainSet
     } = this.state;
 
     var focus = <ZoomFocus {...this.props} />
@@ -39,7 +65,7 @@ export default class BarStackZoom extends ZoomSet {
     return (
       <div>
         <Chart {...this.props} {...this.state}>
-          <BarStackChart {...this.props} {...this.state} xDomain={xDomainSet} showZoom={true}/>
+          <BarStackChart {...this.props} {...this.state} xDomain={xDomainSet} yDomain={yDomainSet} showZoom={true}/>
           {focus}
         </Chart>
       </div>

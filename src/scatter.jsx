@@ -23,10 +23,35 @@ import {
   default as ZoomFocus,
 } from './utils/zoom_focus';
 
+import {
+  default as CommonProps,
+} from './commonProps';
+
 export default class ScatterZoom extends ZoomSet {
-  static defaultProps = {
-    zoomType: 'scatter'
+  constructor(props) {
+    super(props);
+
+    this.mkXDomain();
+    this.mkYDomain();
+    this.mkXScale(this.setXDomain);
+    this.mkYScale(this.setYDomain);
+    this.zoomed = this.zoomed.bind(this);
+
+    this.state = {
+      xScaleSet: this.setXScale,
+      yScaleSet: this.setYScale,
+      xDomainSet: this.setXDomain,
+      yDomainSet: this.setYDomain,
+      onZoom: this.zoomed,
+      d3EventSet: null
+    }
   }
+
+  static defaultProps = Object.assign(CommonProps, {
+    zoomType: 'scatter',
+    zoomY: false,
+    zoomX: true
+  })
 
   render() {
 
