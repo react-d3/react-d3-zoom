@@ -47,6 +47,8 @@ var BarStackZoom = require('../../lib').BarStackZoom;
 
   ReactDOM.render(
     <BarStackZoom
+      width= {600}
+      height= {400}
       data= {generalChartData}
       chartSeries = {chartSeries}
       x= {x}

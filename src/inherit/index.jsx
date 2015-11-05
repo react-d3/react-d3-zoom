@@ -32,7 +32,7 @@ export default class Zoom extends Component {
     yRange: PropTypes.array,
     yScale: PropTypes.string,
     zoomX: PropTypes.bool,
-    zoomY: propTypes.bool
+    zoomY: PropTypes.bool
   }
 
   mkXDomain() {
@@ -46,10 +46,13 @@ export default class Zoom extends Component {
   mkXScale(xDomain) {
     const {
       data,
-      xScale,
-      xRange,
-      xRangeRoundBands,
+      xScale
     } = this.props;
+
+    const {
+      xRange,
+      xRangeRoundBands
+    } = this.state;
 
     var newXScale = {
       scale: xScale,
@@ -58,16 +61,21 @@ export default class Zoom extends Component {
       rangeRoundBands: xRangeRoundBands
     };
 
-    return this.setXScale = scale(newXScale);
+    var newScale = scale(newXScale)
+
+    return this.setXScale = newScale;
   }
 
   mkYScale(yDomain) {
     const {
       data,
-      yScale,
-      yRange,
-      yRangeRoundBands,
+      yScale
     } = this.props;
+
+    const {
+      yRange,
+      yRangeRoundBands
+    } = this.state;
 
     var newYScale = {
       scale: yScale,
@@ -76,7 +84,9 @@ export default class Zoom extends Component {
       rangeRoundBands: yRangeRoundBands
     }
 
-    return this.setYScale = scale(newYScale);
+    var newScale = scale(newYScale)
+
+    return this.setYScale = newScale;
   }
 
   zoomed(xScale, yScale) {

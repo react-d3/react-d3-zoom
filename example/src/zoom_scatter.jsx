@@ -36,6 +36,8 @@ var ScatterZoom = require('../../lib').ScatterZoom;
 
   ReactDOM.render(
     <ScatterZoom
+      width= {600}
+      height= {400}
       data= {generalChartData}
       chartSeries = {chartSeries}
       x= {x}

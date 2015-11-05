@@ -21,6 +21,8 @@ var LineZoom = require('../../lib').LineZoom;
 
   ReactDOM.render(
       <LineZoom
+        width= {600}
+        height= {400}
         data= {generalChartData}
         chartSeries= {chartSeries}
         x= {x}

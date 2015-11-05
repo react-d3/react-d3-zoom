@@ -41,6 +41,8 @@ var AreaStackZoom = require('../../lib').AreaStackZoom;
 
   ReactDOM.render(
     <AreaStackZoom
+      width= {600}
+      height= {400}
       data= {generalChartData}
       chartSeries = {chartSeries}
       x= {x}

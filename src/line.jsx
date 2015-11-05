@@ -31,20 +31,33 @@ export default class LineZoom extends ZoomSet {
   constructor(props) {
     super(props);
 
+    const {
+      margins,
+      width,
+      height
+    } = this.props;
+
+    this.zoomed = this.zoomed.bind(this);
     this.mkXDomain();
     this.mkYDomain();
-    this.mkXScale(this.setXDomain);
-    this.mkYScale(this.setYDomain);
-    this.zoomed = this.zoomed.bind(this);
 
     this.state = {
-      xScaleSet: this.setXScale,
-      yScaleSet: this.setYScale,
       xDomainSet: this.setXDomain,
       yDomainSet: this.setYDomain,
       onZoom: this.zoomed,
-      d3EventSet: null
+      d3EventSet: null,
+      xRange: this.props.xRange || [0, width - margins.left - margins.right],
+      yRange: this.props.yRange || [height - margins.top - margins.bottom, 0],
+      xRangeRoundBands: this.props.xRangeRoundBands || {interval: [0, width - margins.left - margins.right], padding: .1}
     }
+
+    this.mkXScale(this.setXDomain);
+    this.mkYScale(this.setYDomain);
+
+    this.state = Object.assign(this.state, {
+      xScaleSet: this.setXScale,
+      yScaleSet: this.setYScale
+    })
   }
 
   static defaultProps = Object.assign(CommonProps, {
