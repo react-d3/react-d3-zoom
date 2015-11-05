@@ -30,7 +30,9 @@ export default class Zoom extends Component {
     y: PropTypes.func,
     yDomain: PropTypes.array,
     yRange: PropTypes.array,
-    yScale: PropTypes.string
+    yScale: PropTypes.string,
+    zoomX: PropTypes.bool,
+    zoomY: propTypes.bool
   }
 
   mkXDomain() {
