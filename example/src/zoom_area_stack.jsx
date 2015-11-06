@@ -5,53 +5,41 @@ var ReactDOM = require('react-dom');
 var AreaStackZoom = require('../../lib').AreaStackZoom;
 
 (function() {
-  var generalChartData = require('dsv?delimiter=\t!./data/browser.tsv')
+  var generalChartData = require('dsv?delimiter=,!./data/stack_test.csv')
 
-  var formatPercent = d3.format(".0%");
-
-  var chartSeries = [
+  var width = 700,
+    height = 400,
+    chartSeries = [
       {
-        field: 'IE',
-        name: 'IE browser'
+        field: "Group1",
+        name: "Group 1"
       },
       {
-        field: 'Chrome',
-        name: 'Chrome browser'
+        field: "Group2",
+        name: "Group 2"
       },
       {
-        field: 'Firefox'
-      },
-      {
-        field: 'Safari',
-        name: 'Safari browser'
-      },
-      {
-        field: 'Opera',
-        name: 'Opera browser'
+        field: "Group3",
+        name: "Group 3"
       }
     ],
     x = function(d) {
-      var parseDate = d3.time.format("%y-%b-%d").parse;
+      var parseDate = d3.time.format("%m/%d/%y").parse;
       return parseDate(d.date);
     },
-    xScale = 'time',
-    y = function(d) {
-      return d / 100;
-    };
+    xScale = 'time';
 
   ReactDOM.render(
-    <AreaStackZoom
-      width= {600}
-      height= {400}
-      data= {generalChartData}
-      chartSeries = {chartSeries}
-      x= {x}
-      xScale= {xScale}
-      y= {y}
-      yTickFormat= {formatPercent}
-      zoomX= {false}
-      zoomY= {true}
-    />
-  , document.getElementById('data_zoom_area_stack')
+      <AreaStackZoom
+        data= {generalChartData}
+        width= {width}
+        height= {height}
+        chartSeries = {chartSeries}
+        x= {x}
+        xScale= {xScale}
+        zoomX= {true}
+        zoomY= {false}
+      />
+    , document.getElementById('data_zoom_area_stack')
   )
 })()

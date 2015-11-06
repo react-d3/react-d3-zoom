@@ -28,6 +28,13 @@ module.exports = [{
   }
 },{
   "layout": "./charts.hbs",
+  "filename": "./zoom_area_stack2.html",
+  "data": {
+    "title": "Zoom Area Stack Chart",
+    "type": "zoom_area_stack2"
+  }
+},{
+  "layout": "./charts.hbs",
   "filename": "./zoom_bar.html",
   "data": {
     "title": "Zoom Bar Chart",

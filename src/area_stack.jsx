@@ -48,7 +48,8 @@ export default class AreaStackZoom extends ZoomSet {
       d3EventSet: null,
       xRange: this.props.xRange || [0, width - margins.left - margins.right],
       yRange: this.props.yRange || [height - margins.top - margins.bottom, 0],
-      xRangeRoundBands: this.props.xRangeRoundBands || {interval: [0, width - margins.left - margins.right], padding: .1}
+      xRangeRoundBands: this.props.xRangeRoundBands || {interval: [0, width - margins.left - margins.right], padding: .1},
+      zoomType: 'area_stack'
     }
 
     this.mkXScale(this.setXDomain);
@@ -60,11 +61,7 @@ export default class AreaStackZoom extends ZoomSet {
     })
   }
 
-  static defaultProps = Object.assign(CommonProps, {
-    zoomType: 'area_stack',
-    zoomY: false,
-    zoomX: true
-  })
+  static defaultProps = CommonProps
 
   render() {
     const {

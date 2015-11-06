@@ -14,6 +14,7 @@ module.exports = [{
     zoom_line_multi: js_root + '/zoom_line_multi.jsx',
     zoom_scatter: js_root + '/zoom_scatter.jsx',
     zoom_area_stack: js_root + '/zoom_area_stack.jsx',
+    zoom_area_stack2: js_root + '/zoom_area_stack2.jsx',
     zoom_bar: js_root + '/zoom_bar.jsx',
     zoom_bar_stack: js_root + '/zoom_bar_stack.jsx',
     zoom_bar_group: js_root + '/zoom_bar_group.jsx'

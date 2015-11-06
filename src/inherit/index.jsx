@@ -92,12 +92,12 @@ export default class Zoom extends Component {
   zoomed(xScale, yScale) {
 
     const {
+      zoomType,
       xScaleSet,
       yScaleSet
     } = this.state;
 
     const {
-      zoomType,
       zoomX,
       zoomY
     } = this.props;

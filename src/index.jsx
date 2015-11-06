@@ -22,12 +22,12 @@ import {
   default as BarGroupZoom
 } from './bar_group';
 
-export {LineZoom as LineZoom}
-export {ScatterZoom as ScatterZoom}
-export {AreaStackZoom as AreaStackZoom}
-export {BarZoom as BarZoom}
-export {BarStackZoom as BarStackZoom}
-export {BarGroupZoom as BarGroupZoom}
+export {LineZoom}
+export {ScatterZoom}
+export {AreaStackZoom}
+export {BarZoom}
+export {BarStackZoom}
+export {BarGroupZoom}
 
 // inherit
 
@@ -35,7 +35,7 @@ import {
   default as ZoomSet
 } from './inherit/index';
 
-export {ZoomSet as ZoomSet}
+export {ZoomSet}
 
 // utils
 
@@ -43,4 +43,4 @@ import {
   default as ZoomFocus
 } from './utils/zoom_focus';
 
-export {ZoomFocus as ZoomFocus}
+export {ZoomFocus}

@@ -10,5 +10,7 @@ export default {
   margins: margins,
   y: (d) => {return +d;},
   xScale: 'linear',
-  yScale: 'linear'
+  yScale: 'linear',
+  zoomY: false,
+  zoomX: true
 }
