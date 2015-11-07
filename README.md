@@ -6,6 +6,8 @@
 
 ## Quick example
 
+#### With webpack build tools
+
 - Line Chart
 
 ```js
@@ -44,6 +46,58 @@ var LineZoom = require('react-d3-zoom').LineZoom;
   )
 })()
 
+```
+
+#### In html (without build tools)
+
+
+Clone code `react-d3-brush.js` or minify js `react-d3-brush.min.js` and include the script in your HTML.
+
+You'll also need `react`, `react-dom`, `d3`
+
+- Line Chart
+
+```html
+var LineZoom = ReactD3Zoom.LineZoom;
+var data = [
+    {
+        "age": 39,
+        "index": 0
+    },
+    {
+        "age": 38,
+        "index": 1
+    },
+    {
+        "age": 34,
+        "index": 2
+    },
+    {
+        "age": 12,
+        "index": 3
+    }
+];
+
+var chartSeries = [
+    {
+      field: 'age',
+      name: 'Age',
+      color: '#ff7f0e',
+      style: {
+        "stroke-width": 2,
+        "stroke-opacity": .2,
+        "fill-opacity": .2
+      }
+    }
+  ],
+  x = function(d) {
+    return d.index;
+  }
+
+ReactDOM.render(
+  <LineZoom width= {600} height= {500} brushHeight={100} data= {data} chartSeries= {chartSeries} x= {x} />
+, document.getElementById('data_line')
+)
 ```
 
 ## Install
