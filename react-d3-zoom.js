@@ -345,6 +345,7 @@ var ReactD3Zoom =
 	      var xScaleSet = _props.xScaleSet;
 	      var yScaleSet = _props.yScaleSet;
 	      var onZoom = _props.onZoom;
+	      var scaleExtent = _props.scaleExtent;
 
 	      // implement zoom if xscale and y scale is set!
 	      if (xScaleSet && yScaleSet) {
@@ -357,8 +358,10 @@ var ReactD3Zoom =
 	          });
 	        }
 
-	        var zoom = _d32['default'].behavior.zoom().x(xScaleSet).y(yScaleSet).scaleExtent([1, 10]).on("zoom", function () {
-	          onZoom.call(_this, xScaleSet, yScaleSet);
+	        var zoom = _d32['default'].behavior.zoom().x(xScaleSet).y(yScaleSet).scaleExtent(scaleExtent);
+
+	        zoom.on("zoom", function () {
+	          onZoom.call(_this, xScaleSet, yScaleSet, zoom);
 	        });
 
 	        _d32['default'].select(_reactDom2['default'].findDOMNode(this.refs.svgContainer)).call(zoom);
@@ -399,8 +402,8 @@ var ReactD3Zoom =
 	    key: 'defaultProps',
 	    value: Object.assign(_commonProps2['default'], {
 	      svgClassName: 'react-d3-core__container_svg',
-	      id: 'react-d3-core__container_svg__' + Math.floor(Math.random() * 100000),
-	      onZoom: function onZoom() {}
+	      onZoom: function onZoom() {},
+	      scaleExtent: [1, 10]
 	    }),
 	    enumerable: true
 	  }, {
@@ -453,12 +456,18 @@ var ReactD3Zoom =
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {'use strict';
+	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 	exports.scale = scale;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	function scale(props) {
 	  var type = props.type;
@@ -466,7 +475,7 @@ var ReactD3Zoom =
 
 	  var func;
 
-	  if (scale === 'linear') func = d3.scale.linear();else if (scale === 'identity') func = d3.scale.identity();else if (scale === 'sqrt') func = d3.scale.sqrt();else if (scale === 'pow') func = d3.scale.pow();else if (scale === 'log') func = d3.scale.log();else if (scale === 'quantize') func = d3.scale.quantize();else if (scale === 'quantile') func = d3.scale.quantile();else if (scale === 'ordinal') func = d3.scale.ordinal();else if (scale === 'time') func = d3.time.scale();else new Error('Please check your axis scale setting. "' + scale + '" scale is invalid. ');
+	  if (scale === 'linear') func = _d32['default'].scale.linear();else if (scale === 'identity') func = _d32['default'].scale.identity();else if (scale === 'sqrt') func = _d32['default'].scale.sqrt();else if (scale === 'pow') func = _d32['default'].scale.pow();else if (scale === 'log') func = _d32['default'].scale.log();else if (scale === 'quantize') func = _d32['default'].scale.quantize();else if (scale === 'quantile') func = _d32['default'].scale.quantile();else if (scale === 'ordinal') func = _d32['default'].scale.ordinal();else if (scale === 'time') func = _d32['default'].time.scale();else new Error('Please check your axis scale setting. "' + scale + '" scale is invalid. ');
 
 	  func = _mkScaleSettings(props, func);
 
@@ -494,7 +503,6 @@ var ReactD3Zoom =
 
 	  return func;
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 9 */
@@ -11674,12 +11682,18 @@ var ReactD3Zoom =
 /* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {'use strict';
+	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 	exports.xDomain = xDomain;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	function xDomain(props) {
 	  var data = props.data;
@@ -11694,23 +11708,28 @@ var ReactD3Zoom =
 	      return x(d);
 	    });
 	  } else {
-	    return d3.extent(data, function (d) {
+	    return _d32['default'].extent(data, function (d) {
 	      return x(d);
 	    });
 	  }
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 	exports.yDomain = yDomain;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	function yDomain(props, stack) {
 	  var data = props.data;
@@ -11748,17 +11767,16 @@ var ReactD3Zoom =
 	    // not stack, single
 	    var domainArr = chartSeries.map(function (d) {
 	      var field = d.field;
-	      var extent = d3.extent(data, function (dt) {
+	      var extent = _d32['default'].extent(data, function (dt) {
 	        return y(dt[field]);
 	      });
 
 	      return extent;
 	    });
 
-	    return d3.extent([].concat.apply([], domainArr));
+	    return _d32['default'].extent([].concat.apply([], domainArr));
 	  }
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 82 */
@@ -11873,12 +11891,18 @@ var ReactD3Zoom =
 /* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.series = series;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	function series(props) {
 	  var data = props.data;
@@ -11887,7 +11911,7 @@ var ReactD3Zoom =
 	  var y = props.y;
 	  var categoricalColors = props.categoricalColors;
 
-	  categoricalColors = categoricalColors || d3.scale.category10();
+	  categoricalColors = categoricalColors || _d32["default"].scale.category10();
 
 	  var chartSeriesData = chartSeries.map(function (f, i) {
 
@@ -11913,7 +11937,6 @@ var ReactD3Zoom =
 
 	  return chartSeriesData;
 	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 84 */
@@ -12148,7 +12171,7 @@ var ReactD3Zoom =
 /* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -12167,6 +12190,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactFauxDom = __webpack_require__(87);
 
@@ -12190,9 +12217,10 @@ var ReactD3Zoom =
 	      var showBrush = _props.showBrush;
 	      var showZoom = _props.showZoom;
 	      var duration = _props.duration;
+	      var chartId = _props.chartId;
 
 	      // make line
-	      var line = d3.select(dom);
+	      var line = _d32['default'].select(dom);
 
 	      line.datum(dataset.data).style("stroke", dataset.color).attr("class", lineClassName + ' line').attr("d", this._setAxes());
 
@@ -12202,9 +12230,9 @@ var ReactD3Zoom =
 	        }
 	      }
 
-	      if (showBrush) line.style('clip-path', 'url(#react-d3-basic__brush_focus__clip)');
+	      if (showBrush) line.style('clip-path', 'url(#react-d3-basic__brush_focus__clip__' + chartId + ')');
 
-	      if (showZoom) line.style('clip-path', 'url(#react-d3-basic__zoom_focus__clip)');
+	      if (showZoom) line.style('clip-path', 'url(#react-d3-basic__zoom_focus__clip)__' + chartId + ')');
 
 	      return line;
 	    }
@@ -12218,7 +12246,7 @@ var ReactD3Zoom =
 	      var yScaleSet = _props2.yScaleSet;
 	      var interpolate = _props2.interpolate;
 
-	      return d3.svg.line().interpolate(interpolate).x(function (d) {
+	      return _d32['default'].svg.line().interpolate(interpolate).x(function (d) {
 	        return xScaleSet(d.x);
 	      }).y(function (d) {
 	        return yScaleSet(d.y);
@@ -12236,7 +12264,8 @@ var ReactD3Zoom =
 	    key: 'defaultProps',
 	    value: {
 	      interpolate: null,
-	      lineClassName: 'react-d3-basic__line'
+	      lineClassName: 'react-d3-basic__line',
+	      chartId: 0
 	    },
 	    enumerable: true
 	  }]);
@@ -12246,7 +12275,6 @@ var ReactD3Zoom =
 
 	exports['default'] = Line;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 87 */
@@ -22336,7 +22364,7 @@ var ReactD3Zoom =
 /* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -22355,6 +22383,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactFauxDom = __webpack_require__(87);
 
@@ -22379,9 +22411,10 @@ var ReactD3Zoom =
 	      var showBrush = _props.showBrush;
 	      var showZoom = _props.showZoom;
 	      var duration = _props.duration;
+	      var chartId = _props.chartId;
 
 	      // make area
-	      var area = d3.select(dom);
+	      var area = _d32['default'].select(dom);
 
 	      area.datum(dataset.data).attr("class", areaClassName + ' area').style("fill", dataset.color).style("stroke", dataset.color).attr("d", this._setAxes());
 
@@ -22391,9 +22424,9 @@ var ReactD3Zoom =
 	        }
 	      }
 
-	      if (showBrush) area.style('clip-path', 'url(#react-d3-basic__brush_focus__clip)');
+	      if (showBrush) area.style('clip-path', 'url(#react-d3-basic__brush_focus__clip__' + chartId + ')');
 
-	      if (showZoom) area.style('clip-path', 'url(#react-d3-basic__zoom_focus__clip)');
+	      if (showZoom) area.style('clip-path', 'url(#react-d3-basic__zoom_focus__clip__' + chartId + ')');
 
 	      return area;
 	    }
@@ -22409,7 +22442,7 @@ var ReactD3Zoom =
 	      var yScaleSet = _props2.yScaleSet;
 	      var interpolate = _props2.interpolate;
 
-	      return d3.svg.area().interpolate(interpolate).x(function (d) {
+	      return _d32['default'].svg.area().interpolate(interpolate).x(function (d) {
 	        return xScaleSet(d.x);
 	      }).y0(function (d) {
 	        var domain = yScaleSet.domain();
@@ -22438,7 +22471,8 @@ var ReactD3Zoom =
 	    value: {
 	      interpolate: null,
 	      duration: 500,
-	      areaClassName: 'react-d3-basic__area'
+	      areaClassName: 'react-d3-basic__area',
+	      chartId: 0
 	    },
 	    enumerable: true
 	  }]);
@@ -22448,13 +22482,12 @@ var ReactD3Zoom =
 
 	exports['default'] = AreaSimple;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -22473,6 +22506,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactFauxDom = __webpack_require__(87);
 
@@ -22495,12 +22532,13 @@ var ReactD3Zoom =
 	      var areaClassName = _props.areaClassName;
 	      var showBrush = _props.showBrush;
 	      var showZoom = _props.showZoom;
+	      var chartId = _props.chartId;
 
 	      var _setStack = this._setStack();
 	      var _setAxis = this._setAxes();
 
 	      // make areas
-	      var chart = d3.select(dom).attr("class", areaClassName + ' area-group');
+	      var chart = _d32['default'].select(dom).attr("class", areaClassName + ' area-group');
 
 	      chart.selectAll("path").data(_setStack(dataset)).enter().append("path").attr("class", "area").style("fill", function (d) {
 	        return d.color;
@@ -22516,9 +22554,9 @@ var ReactD3Zoom =
 	        return s;
 	      });
 
-	      if (showBrush) chart.selectAll("path").style('clip-path', 'url(#react-d3-basic__brush_focus__clip)');
+	      if (showBrush) chart.selectAll("path").style('clip-path', 'url(#react-d3-basic__brush_focus__clip__' + chartId + ')');
 
-	      if (showZoom) chart.selectAll("path").style('clip-path', 'url(#react-d3-basic__zoom_focus__clip)');
+	      if (showZoom) chart.selectAll("path").style('clip-path', 'url(#react-d3-basic__zoom_focus__clip__' + chartId + ')');
 
 	      return chart;
 	    }
@@ -22548,7 +22586,7 @@ var ReactD3Zoom =
 	          }
 	        };
 	      };
-	      return d3.layout.stack().values(function (d) {
+	      return _d32['default'].layout.stack().values(function (d) {
 	        return d.data;
 	      }).out(buildOut(chartSeries.length));
 	    }
@@ -22564,7 +22602,7 @@ var ReactD3Zoom =
 	      var yScaleSet = _props2.yScaleSet;
 	      var interpolate = _props2.interpolate;
 
-	      return d3.svg.area().interpolate(interpolate).x(function (d) {
+	      return _d32['default'].svg.area().interpolate(interpolate).x(function (d) {
 	        return xScaleSet(d.x);
 	      }).y0(function (d) {
 	        return yScaleSet(d.y0);
@@ -22585,7 +22623,8 @@ var ReactD3Zoom =
 	    value: {
 	      areaClass: 'react-d3-basics__area_stack',
 	      interpolate: null,
-	      areaClassName: 'react-d3-basic__area_stack'
+	      areaClassName: 'react-d3-basic__area_stack',
+	      chartId: 0
 	    },
 	    enumerable: true
 	  }]);
@@ -22595,13 +22634,12 @@ var ReactD3Zoom =
 
 	exports['default'] = AreaStack;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -22620,6 +22658,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactFauxDom = __webpack_require__(87);
 
@@ -22648,9 +22690,10 @@ var ReactD3Zoom =
 	      var yScaleSet = _props.yScaleSet;
 	      var onMouseOut = _props.onMouseOut;
 	      var onMouseOver = _props.onMouseOver;
+	      var chartId = _props.chartId;
 
 	      // make areas
-	      var chart = d3.select(dom);
+	      var chart = _d32['default'].select(dom);
 
 	      var domain = yScaleSet.domain();
 	      var zeroBase;
@@ -22677,9 +22720,9 @@ var ReactD3Zoom =
 	        }
 	      }
 
-	      if (showBrush) chart.selectAll("rect").style('clip-path', 'url(#react-d3-basic__brush_focus__clip)');
+	      if (showBrush) chart.selectAll("rect").style('clip-path', 'url(#react-d3-basic__brush_focus__clip__' + chartId + ')');
 
-	      if (showZoom) chart.selectAll("rect").style('clip-path', 'url(#react-d3-basic__zoom_focus__clip)');
+	      if (showZoom) chart.selectAll("rect").style('clip-path', 'url(#react-d3-basic__zoom_focus__clip__' + chartId + ')');
 
 	      return chart;
 	    }
@@ -22697,7 +22740,8 @@ var ReactD3Zoom =
 	      interpolate: null,
 	      onMouseOver: function onMouseOver(d) {},
 	      onMouseOut: function onMouseOut(d) {},
-	      barClassName: 'react-d3-basic__bar'
+	      barClassName: 'react-d3-basic__bar',
+	      chartId: 0
 	    },
 	    enumerable: true
 	  }]);
@@ -22707,13 +22751,12 @@ var ReactD3Zoom =
 
 	exports['default'] = Bar;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -22732,6 +22775,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactFauxDom = __webpack_require__(87);
 
@@ -22761,6 +22808,7 @@ var ReactD3Zoom =
 	      var count = _props.count;
 	      var onMouseOut = _props.onMouseOut;
 	      var onMouseOver = _props.onMouseOver;
+	      var chartId = _props.chartId;
 
 	      var domain = yScaleSet.domain();
 	      var zeroBase;
@@ -22774,7 +22822,7 @@ var ReactD3Zoom =
 	      }
 
 	      // make areas
-	      var chart = d3.select(dom).datum(dataset).attr("class", "bargroup");
+	      var chart = _d32['default'].select(dom).datum(dataset).attr("class", "bargroup");
 
 	      chart.selectAll("rect").data(dataset.data).enter().append("rect").attr("class", barClassName + ' bar').attr("width", x1.rangeBand()).attr("x", function (d) {
 	        return xScaleSet(d.x) ? xScaleSet(d.x) + x1.rangeBand() * count : -10000;
@@ -22792,7 +22840,7 @@ var ReactD3Zoom =
 	        }
 	      }
 
-	      if (showZoom) chart.selectAll("rect").style('clip-path', 'url(#react-d3-basic__zoom_focus__clip)');
+	      if (showZoom) chart.selectAll("rect").style('clip-path', 'url(#react-d3-basic__zoom_focus__clip__' + chartId + ')');
 
 	      return chart;
 	    }
@@ -22809,7 +22857,8 @@ var ReactD3Zoom =
 	    value: {
 	      onMouseOver: function onMouseOver(d) {},
 	      onMouseOut: function onMouseOut(d) {},
-	      barClassName: 'react-d3-basic__bar_group'
+	      barClassName: 'react-d3-basic__bar_group',
+	      chartId: 0
 	    },
 	    enumerable: true
 	  }]);
@@ -22819,13 +22868,12 @@ var ReactD3Zoom =
 
 	exports['default'] = BarGroup;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -22844,6 +22892,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactFauxDom = __webpack_require__(87);
 
@@ -22871,11 +22923,12 @@ var ReactD3Zoom =
 	      var yScaleSet = _props.yScaleSet;
 	      var onMouseOver = _props.onMouseOver;
 	      var onMouseOut = _props.onMouseOut;
+	      var chartId = _props.chartId;
 
 	      var _setStack = this._setStack();
 
 	      // make areas
-	      var chart = d3.select(dom).attr("class", "g");
+	      var chart = _d32['default'].select(dom).attr("class", "g");
 
 	      var domain = yScaleSet.domain();
 	      var zeroBase;
@@ -22910,7 +22963,7 @@ var ReactD3Zoom =
 	        return Math.abs(yScaleSet(d.y) - yScaleSet(0));
 	      }).on("mouseover", onMouseOver).on("mouseout", onMouseOut);
 
-	      if (showZoom) barGroup.selectAll("rect").style('clip-path', 'url(#react-d3-basic__zoom_focus__clip)');
+	      if (showZoom) barGroup.selectAll("rect").style('clip-path', 'url(#react-d3-basic__zoom_focus__clip__' + chartId + ')');
 
 	      return chart;
 	    }
@@ -22940,7 +22993,7 @@ var ReactD3Zoom =
 	          }
 	        };
 	      };
-	      return d3.layout.stack().values(function (d) {
+	      return _d32['default'].layout.stack().values(function (d) {
 	        return d.data;
 	      }).out(buildOut(chartSeries.length));
 	    }
@@ -22957,7 +23010,8 @@ var ReactD3Zoom =
 	    value: {
 	      onMouseOver: function onMouseOver(d) {},
 	      onMouseOut: function onMouseOut(d) {},
-	      barClassName: 'react-d3-basic__bar_stack'
+	      barClassName: 'react-d3-basic__bar_stack',
+	      chartId: 0
 	    },
 	    enumerable: true
 	  }]);
@@ -22967,13 +23021,12 @@ var ReactD3Zoom =
 
 	exports['default'] = BarStack;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -22992,6 +23045,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactFauxDom = __webpack_require__(87);
 
@@ -23019,17 +23076,17 @@ var ReactD3Zoom =
 	      var onMouseOut = _props.onMouseOut;
 	      var onMouseOver = _props.onMouseOver;
 
-	      var arc = d3.svg.arc().outerRadius(outerRadius).innerRadius(innerRadius);
+	      var arc = _d32['default'].svg.arc().outerRadius(outerRadius).innerRadius(innerRadius);
 
-	      var arcOver = d3.svg.arc().outerRadius(outerRadius + 10).innerRadius(innerRadius);
+	      var arcOver = _d32['default'].svg.arc().outerRadius(outerRadius + 10).innerRadius(innerRadius);
 
-	      var pie = d3.layout.pie().sort(function (a, b) {
+	      var pie = _d32['default'].layout.pie().sort(function (a, b) {
 	        return pieSort(a.value, b.value);
 	      }).value(function (d) {
 	        return d.value;
 	      });
 
-	      var pieDom = d3.select(dom);
+	      var pieDom = _d32['default'].select(dom);
 
 	      var g = pieDom.selectAll('.arc').data(pie(chartSeriesData)).enter().append('g').attr('class', 'arc');
 
@@ -23095,13 +23152,12 @@ var ReactD3Zoom =
 
 	exports['default'] = Pie;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -23120,6 +23176,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactFauxDom = __webpack_require__(87);
 
@@ -23150,6 +23210,7 @@ var ReactD3Zoom =
 	      var showZoom = _props.showZoom;
 	      var brushSymbol = _props.brushSymbol;
 	      var duration = _props.duration;
+	      var chartId = _props.chartId;
 
 	      var symbol = dataset.symbol ? dataset.symbol : defaultSymbol;
 	      var symbolSize = dataset.symbolSize ? dataset.symbolSize : defaultSymbolSize;
@@ -23160,11 +23221,11 @@ var ReactD3Zoom =
 	        symbolSize = 4;
 	      }
 
-	      var dots = d3.select(dom);
+	      var dots = _d32['default'].select(dom);
 
 	      dots.selectAll('' + scatterClassName).data(dataset.data).enter().append("path").attr('class', 'react-d3-basic__scatter__path').style('fill', dataset.color).attr("transform", function (d) {
 	        return "translate(" + xScaleSet(d.x) + "," + yScaleSet(d.y) + ")";
-	      }).attr("d", d3.svg.symbol().size(function (d) {
+	      }).attr("d", _d32['default'].svg.symbol().size(function (d) {
 	        return symbolSize * symbolSize;
 	      }).type(symbol));
 
@@ -23174,9 +23235,9 @@ var ReactD3Zoom =
 	        }
 	      }
 
-	      if (showBrush) d3.select(dom).style('clip-path', 'url(#react-d3-basic__brush_focus__clip)');
+	      if (showBrush) _d32['default'].select(dom).style('clip-path', 'url(#react-d3-basic__brush_focus__clip__' + chartId + ')');
 
-	      if (showZoom) d3.select(dom).style('clip-path', 'url(#react-d3-basic__zoom_focus__clip)');
+	      if (showZoom) _d32['default'].select(dom).style('clip-path', 'url(#react-d3-basic__zoom_focus__clip__' + chartId + ')');
 
 	      return dots;
 	    }
@@ -23194,7 +23255,8 @@ var ReactD3Zoom =
 	      defaultSymbol: 'circle',
 	      defaultSymbolSize: 10,
 	      duration: 1000,
-	      scatterClassName: 'react-d3-basic__scatter'
+	      scatterClassName: 'react-d3-basic__scatter',
+	      chartId: 0
 	    },
 	    enumerable: true
 	  }]);
@@ -23204,7 +23266,6 @@ var ReactD3Zoom =
 
 	exports['default'] = Scatter;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 157 */
@@ -23765,7 +23826,7 @@ var ReactD3Zoom =
 /* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {"use strict";
+	"use strict";
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -23903,7 +23964,6 @@ var ReactD3Zoom =
 
 	exports['default'] = BarGroupChart;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 163 */
@@ -24119,7 +24179,7 @@ var ReactD3Zoom =
 /* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(d3) {'use strict';
+	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -24138,6 +24198,10 @@ var ReactD3Zoom =
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _d3 = __webpack_require__(5);
+
+	var _d32 = _interopRequireDefault(_d3);
 
 	var _reactD3Core = __webpack_require__(3);
 
@@ -24206,35 +24270,58 @@ var ReactD3Zoom =
 	    }
 	  }, {
 	    key: 'zoomed',
-	    value: function zoomed(xScale, yScale) {
+	    value: function zoomed(xScale, yScale, zoom) {
 	      var _state3 = this.state;
 	      var zoomType = _state3.zoomType;
 	      var xScaleSet = _state3.xScaleSet;
 	      var yScaleSet = _state3.yScaleSet;
+	      var yDomainSet = _state3.yDomainSet;
+	      var xDomainSet = _state3.xDomainSet;
 	      var _props3 = this.props;
 	      var zoomX = _props3.zoomX;
 	      var zoomY = _props3.zoomY;
 
-	      var evt = d3.event;
+	      var evt = _d32['default'].event;
+	      var zoomXDomain = xScale.domain();
+	      var zoomYDomain = yScale.domain();
+
+	      if (xScale.domain()[0] < this.setXDomain[0]) {
+	        zoomXDomain = xDomainSet;
+	        zoom.translate([zoom.translate()[0] - xScale(this.setXDomain[0]) + xScale.range()[0], zoom.translate()[1]]);
+	      } else if (xScale.domain()[1] > this.setXDomain[1]) {
+	        zoomXDomain = xDomainSet;
+	        zoom.translate([zoom.translate()[0] - xScale(this.setXDomain[1]) + xScale.range()[1], zoom.translate()[1]]);
+	      }
+
+	      if (yScale.domain()[0] < this.setYDomain[0]) {
+	        zoomYDomain = yDomainSet;
+	        zoom.translate([zoom.translate()[0], zoom.translate()[1] - yScale(this.setYDomain[0]) + yScale.range()[0]]);
+	      } else if (yScale.domain()[1] > this.setYDomain[1]) {
+	        zoomYDomain = yDomainSet;
+	        zoom.translate([zoom.translate()[0], zoom.translate()[1] - yScale(this.setYDomain[1]) + yScale.range()[1]]);
+	      }
 
 	      if (zoomType === 'line' || zoomType === 'scatter' || zoomType === 'area_stack') {
 
 	        this.setState({
 	          d3EventSet: evt,
-	          xDomainSet: zoomX ? xScale.domain() : this.setXDomain,
-	          yDomainSet: zoomY ? yScale.domain() : this.setYDomain
+	          xDomainSet: zoomX ? zoomXDomain : this.setXDomain,
+	          yDomainSet: zoomY ? zoomYDomain : this.setYDomain
 	        });
 	      } else if (zoomType === 'bar' || zoomType === 'bar_group' || zoomType === 'bar_stack') {
 
 	        var newDomain = xScale.domain();
 	        var selected = xScaleSet.domain().filter(function (d) {
-	          return newDomain[0] <= xScaleSet(d) && xScaleSet(d) <= newDomain[1];
+	          var filterDomain = newDomain[0] <= xScaleSet(d) && xScaleSet(d) <= newDomain[1];
+	          return filterDomain;
 	        });
+
+	        if (selected.length === 0) selected = xDomainSet;
 
 	        this.setState({
 	          d3EventSet: evt,
 	          xDomainSet: zoomX ? selected : this.setXDomain,
-	          yDomainSet: zoomY ? yScale.domain() : this.setYDomain
+	          yDomainSet: zoomY ? zoomYDomain : this.setYDomain
 	        });
 	      }
 	    }
@@ -24265,7 +24352,6 @@ var ReactD3Zoom =
 
 	exports['default'] = Zoom;
 	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
 /* 166 */
@@ -24307,13 +24393,16 @@ var ReactD3Zoom =
 	      var height = _props.height;
 	      var width = _props.width;
 	      var margins = _props.margins;
+	      var chartId = _props.chartId;
+
+	      var id = "react-d3-basic__zoom_focus__clip__" + chartId;
 
 	      return _react2["default"].createElement(
 	        "defs",
 	        null,
 	        _react2["default"].createElement(
 	          "clipPath",
-	          { id: "react-d3-basic__zoom_focus__clip" },
+	          { id: id },
 	          _react2["default"].createElement("rect", {
 	            width: width - margins.left - margins.right,
 	            height: height - margins.top - margins.bottom
@@ -24321,6 +24410,12 @@ var ReactD3Zoom =
 	        )
 	      );
 	    }
+	  }], [{
+	    key: "defaultProps",
+	    value: {
+	      chartId: 0
+	    },
+	    enumerable: true
 	  }]);
 
 	  return ZoomFocus;
