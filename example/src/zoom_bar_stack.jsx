@@ -56,6 +56,7 @@ var BarStackZoom = require('../../lib').BarStackZoom;
       yTickFormat= {yTickFormat}
       zoomX={false}
       zoomY={true}
+      chartId={2}
     />
   , document.getElementById('data_zoom_bar_stack')
   )

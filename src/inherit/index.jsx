@@ -125,6 +125,7 @@ export default class Zoom extends Component {
       zoomYDomain = yDomainSet
       zoom.translate([zoom.translate()[0], zoom.translate()[1] - yScale(this.setYDomain[1]) + yScale.range()[1]]);
     }
+
     if( zoomType === 'line' ||
       zoomType === 'scatter' ||
       zoomType === 'area_stack') {
@@ -143,14 +144,16 @@ export default class Zoom extends Component {
       var newDomain = xScale.domain();
       var selected =  xScaleSet.domain()
           .filter((d) => {
-            return (newDomain[0] <= xScaleSet(d)) &&
-              (xScaleSet(d) <= newDomain[1]);
+            var filterDomain = (newDomain[0] <= xScaleSet(d)) && (xScaleSet(d) <= newDomain[1]);
+            return filterDomain;
           });
+
+      if(selected.length === 0) selected = xDomainSet;
 
       this.setState({
         d3EventSet: evt,
         xDomainSet: zoomX ? selected : this.setXDomain,
-        yDomainSet: zoomY ? yScale.domain() : this.setYDomain
+        yDomainSet: zoomY ? zoomYDomain : this.setYDomain
       })
     }
   }

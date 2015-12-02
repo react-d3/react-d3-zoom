@@ -4,6 +4,30 @@
 
 `react-d3` zoom implementation.
 
+
+## Install
+
+```
+npm install --save react-d3-zoom
+```
+
+## LIVE DEMO
+
+http://reactd3.org/docs/zoom
+
+## Support Zoom Component
+
+- Line Chart: export as `LineZoom`
+- Area Stack Chart: export as `AreaStackZoom`
+- Scatter Plot: export as `ScatterZoom`
+- Bar Chart: export as `BarZoom`
+- Bar Stack: export as `BarStackZoom`
+- Bar Group: export as `BarGroupZoom`
+
+## Gallery
+
+![img](http://www.reactd3.org/img/zoom/cover.png)
+
 ## Quick example
 
 #### With webpack build tools
@@ -119,28 +143,9 @@ You'll also need `react`, `react-dom`, `d3`
 
 ```
 
-## Install
+## Note
 
-```
-npm install --save react-d3-zoom
-```
-
-## LIVE DEMO
-
-http://reactd3.org/docs/zoom
-
-## Support Zoom Component
-
-- Line Chart: export as `LineZoom`
-- Area Stack Chart: export as `AreaStackZoom`
-- Scatter Plot: export as `ScatterZoom`
-- Bar Chart: export as `BarZoom`
-- Bar Stack: export as `BarStackZoom`
-- Bar Group: export as `BarGroupZoom`
-
-## Gallery
-
-![img](http://www.reactd3.org/img/zoom/cover.png)
+To prevent id conflict, if you are using multipule charts in the same page, you have to set prop `chartId` to prevent.
 
 ## License
 
