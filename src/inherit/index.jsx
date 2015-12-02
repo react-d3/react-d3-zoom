@@ -91,12 +91,14 @@ export default class Zoom extends Component {
     return this.setYScale = newScale;
   }
 
-  zoomed(xScale, yScale) {
+  zoomed(xScale, yScale, zoom) {
 
     const {
       zoomType,
       xScaleSet,
-      yScaleSet
+      yScaleSet,
+      yDomainSet,
+      xDomainSet
     } = this.state;
 
     const {
@@ -105,15 +107,32 @@ export default class Zoom extends Component {
     } = this.props;
 
     var evt = d3.event;
+    var zoomXDomain = xScale.domain();
+    var zoomYDomain = yScale.domain();
 
+    if (xScale.domain()[0] < this.setXDomain[0]) {
+      zoomXDomain = xDomainSet
+      zoom.translate([zoom.translate()[0] - xScale(this.setXDomain[0]) + xScale.range()[0], zoom.translate()[1]]);
+    } else if (xScale.domain()[1] > this.setXDomain[1]) {
+      zoomXDomain = xDomainSet
+      zoom.translate([zoom.translate()[0] - xScale(this.setXDomain[1]) + xScale.range()[1], zoom.translate()[1]]);
+    }
+
+    if (yScale.domain()[0] < this.setYDomain[0]) {
+      zoomYDomain = yDomainSet
+      zoom.translate([zoom.translate()[0], zoom.translate()[1] - yScale(this.setYDomain[0]) + yScale.range()[0]]);
+    } else if (yScale.domain()[1] > this.setYDomain[1]) {
+      zoomYDomain = yDomainSet
+      zoom.translate([zoom.translate()[0], zoom.translate()[1] - yScale(this.setYDomain[1]) + yScale.range()[1]]);
+    }
     if( zoomType === 'line' ||
       zoomType === 'scatter' ||
       zoomType === 'area_stack') {
 
       this.setState({
         d3EventSet: evt,
-        xDomainSet: zoomX ? xScale.domain() : this.setXDomain,
-        yDomainSet: zoomY ? yScale.domain() : this.setYDomain
+        xDomainSet: zoomX ? zoomXDomain : this.setXDomain,
+        yDomainSet: zoomY ? zoomYDomain : this.setYDomain
       })
 
     }else if( zoomType === 'bar' ||
